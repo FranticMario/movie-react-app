@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { popularMovies } from "../shared/Api";
+import { fetchGenreList, popularMovies } from "../shared/Api";
 import { Movie } from "../înterfaces/Movie";
-import { genres } from "../înterfaces/Genres";
+import { Genre } from "../înterfaces/Genre";
 
 type Params = {
   query: string;
@@ -11,6 +11,7 @@ type Params = {
 const MovieList = () => {
   const { query } = useParams<Params>();
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,6 +33,19 @@ const MovieList = () => {
     fetchMovies();
   }, [query]);
 
+  const fetchGenres = async () => {
+    try {
+      const result = await fetchGenreList();
+      setGenres(result);
+    } catch (err) {
+      setError("Failed to fetch Genres. Please try again later.");
+    }
+  };
+
+  useEffect(() => {
+    fetchGenres();
+  }, []);
+
   if (loading) {
     return <p>Loading movies...</p>;
   }
@@ -43,16 +57,16 @@ const MovieList = () => {
   return (
     <div>
       <div className="flex justify-center mb-6 space-x-4">
-        {Object.entries(genres).map(([id, name], index) => (
+        {genres.map((genre, index) => (
           <button
-            key={id}
+            key={genre.id}
             className={`px-4 py-2 rounded-full ${
               index === 0
                 ? "bg-red-500 text-white"
                 : "bg-gray-200 text-gray-700"
             }`}
           >
-            {name}
+            {genre.name}
           </button>
         ))}
       </div>
@@ -89,7 +103,11 @@ const MovieList = () => {
                 <span className="mx-1">•</span>
                 <span>{new Date(movie.release_date).getFullYear()}</span>
                 <span className="mx-1">•</span>
-                <span>{genres[movie.genre_ids[0]] || "Unknown"}</span>
+
+                <span>
+                  {genres.find((genre) => genre.id === movie.genre_ids[0])
+                    ?.name || "Unknown"}
+                </span>
                 <span className="mx-1">•</span>
                 {movie.runtime ? (
                   <span>
