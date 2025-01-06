@@ -7,8 +7,20 @@ import Intro from './pages/Intro'
 import Splashscreen from './pages/Splashscreen'
 import Genre from './pages/Genre'
 import MovieDetails from './pages/MovieDetails'
+import { useEffect, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 
 function App() {
+  const [currentScreen, setCurrentScreen] = useState<'splashscreen' | 'intro' | 'home'>('splashscreen')
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentScreen('intro')
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -27,9 +39,17 @@ function App() {
   )
 
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
+    <div className="flex items-center justify-center">
+      <AnimatePresence mode="wait">
+        {currentScreen === 'splashscreen' ? (
+          <Splashscreen key="splashscreen" />
+        ) : currentScreen === 'intro' ? (
+          <Intro key="intro" onComplete={() => setCurrentScreen('home')} />
+        ) : (
+          <RouterProvider router={router} />
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 
