@@ -6,6 +6,7 @@ import Favorites from './pages/Favorites'
 import Intro from './pages/Intro'
 import Splashscreen from './pages/Splashscreen'
 import Genre from './pages/Genre'
+import MovieDetails from './pages/MovieDetails'
 
 function App() {
   const router = createBrowserRouter(
@@ -18,6 +19,8 @@ function App() {
           <Route path="intro" element={<Intro />} />
           <Route path="splashscreen" element={<Splashscreen />} />
           <Route path="favorites" element={<Favorites />} />
+          <Route path="search/:query/:movieDetails" element={<MovieDetails />} />
+          <Route path="genre/:query/:movieDetails" element={<MovieDetails />} />
         </Route>
       </>,
     ),
