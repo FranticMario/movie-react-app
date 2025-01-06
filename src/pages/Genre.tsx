@@ -1,7 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import MovieList from "../components/MovieList";
 
 const Genre = () => {
+  const location = useLocation();
+  const isPopular = location.pathname === "/popular";
   return (
     <>
       <div className="mb-4">
@@ -12,7 +14,7 @@ const Genre = () => {
         />
       </div>
 
-      <h1 className="text-3xl">Genre</h1>
+      {isPopular && <h1 className="text-3xl">Popular</h1>}
       <NavLink to="/genre/Action">Action</NavLink>
       <NavLink to="/search/Matrix">S:Matrix</NavLink>
 
