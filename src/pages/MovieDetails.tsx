@@ -1,97 +1,51 @@
 import { useEffect, useState } from "react";
-
-interface IMovie {
-  adult: boolean;
-  backdrop_path: string;
-  belongs_to_collection: null;
-  budget: number;
-  genres: Genre[];
-  homepage: string;
-  id: number;
-  imdb_id: string;
-  origin_country: string[];
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  production_companies: ProductionCompany[];
-  production_countries: ProductionCountry[];
-  release_date: Date;
-  revenue: number;
-  runtime: number;
-  spoken_languages: SpokenLanguage[];
-  status: string;
-  tagline: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
-
-interface Genre {
-  id: number;
-  name: string;
-}
-
-interface ProductionCompany {
-  id: number;
-  logo_path: string;
-  name: string;
-  origin_country: string;
-}
-
-interface ProductionCountry {
-  iso_3166_1: string;
-  name: string;
-}
-
-interface SpokenLanguage {
-  english_name: string;
-  iso_639_1: string;
-  name: string;
-}
+import { fetchMovieDetails } from "../shared/Api";
+import { useParams } from "react-router-dom";
+import { IMovieDetails } from "../înterfaces/IMovieDetails";
 
 const MovieDetails = () => {
-  const [movie, setMovie] = useState<IMovie | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { movieId } = useParams<{ movieId: string }>();
+  const [singleMovie, setSingleMovie] = useState<IMovieDetails | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const API_KEY = import.meta.env.VITE_API_KEY;
-    // ${query}
-    const fetchMovieDetails = async () => {
-
-      const options = {
-        method: 'GET',
-        headers: { accept: 'application/json', Authorization: `Bearer ${API_KEY}` }
-      };
-
+    const fetchDetails = async () => {
+      if (!movieId) {
+        setError("No movie ID provided.");
+        setLoading(false);
+        return;
+      }
       try {
-        const response = await fetch('https://api.themoviedb.org/3/movie/278?language=en-US', options);
-        const data = await response.json();
-        console.log(data);
+        setLoading(true);
+        setError(null);
+        const movieData = await fetchMovieDetails(Number(movieId));
+        setSingleMovie(movieData);
 
-        setMovie(data);
       } catch (err) {
-        console.error("Error fetching movie data:", err);
+        setError("Failed to load movie details.");
+        console.log(err);
+
       } finally {
         setLoading(false);
       }
-    }
-    fetchMovieDetails();
-  }, []);
-  console.log(movie);
+    };
+    fetchDetails();
+  }, [movieId]);
 
+  if (loading) return <p>Loading...</p>;
+
+  if (error) return <p>{error}</p>;
 
   return (
     <section>
       {loading ? (
         <p>Loading...</p>
-      ) : movie ? (
+      ) : singleMovie ? (
         <div className="movie-card">
-          <h1>{movie.title}</h1>
-          <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-          <p>{movie.overview}</p>
+          <img src={`https://image.tmdb.org/t/p/w500${singleMovie.poster_path}`} alt={singleMovie.title} />
+          <h1>{singleMovie.title}</h1>
+          <p>{singleMovie.overview.slice(0, 300)}</p>
         </div>
       ) : (
         <p>No movie data found.</p>

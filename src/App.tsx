@@ -19,8 +19,8 @@ function App() {
           <Route path="intro" element={<Intro />} />
           <Route path="splashscreen" element={<Splashscreen />} />
           <Route path="favorites" element={<Favorites />} />
-          <Route path="search/:query/:movieDetails" element={<MovieDetails />} />
-          <Route path="genre/:query/:movieDetails" element={<MovieDetails />} />
+          <Route path="search/:query/:movieId" element={<MovieDetails />} />
+          <Route path="genre/:query/:movieId" element={<MovieDetails />} />
         </Route>
       </>,
     ),
