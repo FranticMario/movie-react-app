@@ -1,35 +1,63 @@
 import { useEffect, useState } from "react";
 
-interface RatedMoviesResponse {
-  page: number;
-  results: RatedMovie[];
-  total_pages: number;
-  total_results: number;
-}
-
-interface RatedMovie {
+interface IMovie {
   adult: boolean;
   backdrop_path: string;
-  genre_ids: number[];
+  belongs_to_collection: null;
+  budget: number;
+  genres: Genre[];
+  homepage: string;
   id: number;
+  imdb_id: string;
+  origin_country: string[];
   original_language: string;
   original_title: string;
   overview: string;
   popularity: number;
   poster_path: string;
-  release_date: string;
+  production_companies: ProductionCompany[];
+  production_countries: ProductionCountry[];
+  release_date: Date;
+  revenue: number;
+  runtime: number;
+  spoken_languages: SpokenLanguage[];
+  status: string;
+  tagline: string;
   title: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
-  rating: number;
+}
+
+interface Genre {
+  id: number;
+  name: string;
+}
+
+interface ProductionCompany {
+  id: number;
+  logo_path: string;
+  name: string;
+  origin_country: string;
+}
+
+interface ProductionCountry {
+  iso_3166_1: string;
+  name: string;
+}
+
+interface SpokenLanguage {
+  english_name: string;
+  iso_639_1: string;
+  name: string;
 }
 
 const MovieDetails = () => {
-  const [movies, setMovies] = useState<RatedMoviesResponse[]>([]);
-  const API_KEY = import.meta.env.VITE_API_KEY;
+  const [movie, setMovie] = useState<IMovie | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const API_KEY = import.meta.env.VITE_API_KEY;
     // ${query}
     const fetchMovieDetails = async () => {
 
@@ -39,23 +67,35 @@ const MovieDetails = () => {
       };
 
       try {
-        const response = await fetch('https://api.themoviedb.org/3/account/null/lists?page=1', options);
+        const response = await fetch('https://api.themoviedb.org/3/movie/278?language=en-US', options);
         const data = await response.json();
         console.log(data);
 
-        setMovies(data);
+        setMovie(data);
       } catch (err) {
         console.error("Error fetching movie data:", err);
+      } finally {
+        setLoading(false);
       }
     }
     fetchMovieDetails();
-  }, [API_KEY]);
-  console.log(movies);
+  }, []);
+  console.log(movie);
 
 
   return (
     <section>
-
+      {loading ? (
+        <p>Loading...</p>
+      ) : movie ? (
+        <div className="movie-card">
+          <h1>{movie.title}</h1>
+          <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+          <p>{movie.overview}</p>
+        </div>
+      ) : (
+        <p>No movie data found.</p>
+      )}
     </section>
   )
 }
