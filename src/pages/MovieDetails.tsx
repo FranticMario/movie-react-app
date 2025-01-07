@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchMovieDetails } from "../shared/Api";
 import { useParams } from "react-router-dom";
-import { IMovieDetails } from "../înterfaces/IMovieDetails";
+import { IMovieDetails } from "../interfaces/IMovieDetails";
 
 const MovieDetails = () => {
   const { movieId } = useParams<{ movieId: string }>();
@@ -21,11 +21,9 @@ const MovieDetails = () => {
         setError(null);
         const movieData = await fetchMovieDetails(Number(movieId));
         setSingleMovie(movieData);
-
       } catch (err) {
         setError("Failed to load movie details.");
         console.log(err);
-
       } finally {
         setLoading(false);
       }
@@ -43,7 +41,10 @@ const MovieDetails = () => {
         <p>Loading...</p>
       ) : singleMovie ? (
         <div className="movie-card">
-          <img src={`https://image.tmdb.org/t/p/w500${singleMovie.poster_path}`} alt={singleMovie.title} />
+          <img
+            src={`https://image.tmdb.org/t/p/w500${singleMovie.poster_path}`}
+            alt={singleMovie.title}
+          />
           <h1>{singleMovie.title}</h1>
           <p>{singleMovie.overview.slice(0, 300)}</p>
         </div>
@@ -51,7 +52,7 @@ const MovieDetails = () => {
         <p>No movie data found.</p>
       )}
     </section>
-  )
-}
+  );
+};
 
-export default MovieDetails
+export default MovieDetails;
