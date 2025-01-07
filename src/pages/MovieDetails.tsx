@@ -24,11 +24,9 @@ const MovieDetails = () => {
         setError(null);
         const movieData = await fetchMovieDetails(Number(movieId));
         setSingleMovie(movieData);
-
       } catch (err) {
         setError("Failed to load movie details.");
         console.log(err);
-
       } finally {
         setLoading(false);
       }
@@ -108,7 +106,7 @@ const MovieDetails = () => {
         <p className="text-center text-gray-500">No movie data found.</p>
       )}
     </section>
-  )
-}
+  );
+};
 
-export default MovieDetails
+export default MovieDetails;

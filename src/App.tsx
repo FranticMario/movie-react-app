@@ -10,6 +10,7 @@ import MovieDetails from './pages/MovieDetails'
 import { AnimatePresence } from 'framer-motion'
 
 function App() {
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -23,9 +24,9 @@ function App() {
           <Route path="favorites" element={<Favorites />} />
           <Route path="movie/:movieId/:title" element={<MovieDetails />} />
         </Route>
-      </>,
-    ),
-  )
+      </>
+    )
+  );
 
   return (
     <div className="flex items-center justify-center">
@@ -36,4 +37,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
