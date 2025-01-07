@@ -1,6 +1,17 @@
 import { motion } from 'framer-motion'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Splashscreen = () => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/intro')
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [navigate])
   return (
     <motion.section
       initial={{
@@ -17,7 +28,7 @@ const Splashscreen = () => {
         duration: 1,
         ease: 'backInOut',
       }}
-      className="bg-myCustomColor-red rounded-[50px] w-[428px] h-[926px] flex flex-col justify-center items-center">
+      className="bg-[#FC2121] rounded-[50px] w-[428px] h-[926px] flex flex-col justify-center items-center">
       <h1 className="text-[44px] text-white">.MOV</h1>
     </motion.section>
   )
