@@ -21,8 +21,7 @@ function App() {
           <Route path="search/:query" element={<Genre />} />
           <Route path="genre/:query" element={<Genre />} />
           <Route path="favorites" element={<Favorites />} />
-          <Route path="search/:query/:movieId" element={<MovieDetails />} />
-          <Route path="genre/:query/:movieId" element={<MovieDetails />} />
+          <Route path="movie/:movieId/:title" element={<MovieDetails />} />
         </Route>
       </>,
     ),
