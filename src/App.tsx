@@ -29,7 +29,7 @@ function App() {
           <Route path="search/:query" element={<Genre />} />
           <Route path="genre/:query" element={<Genre />} />
           <Route path="popular" element={<Genre />} />
-          <Route path="intro" element={<Intro />} />
+          <Route path="intro" element={<Intro onComplete={() => setCurrentScreen('home')} />} />
           <Route path="splashscreen" element={<Splashscreen />} />
           <Route path="favorites" element={<Favorites />} />
           <Route path="search/:query/:movieId" element={<MovieDetails />} />
