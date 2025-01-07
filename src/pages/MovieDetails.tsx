@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { fetchMovieDetails } from "../shared/Api";
 import { useNavigate, useParams } from "react-router-dom";
 import { IMovieDetails } from '../înterfaces/IMovieDetails';
+import Footer from "../components/Footer";
 
 const MovieDetails = () => {
-  const { movieId } = useParams<{ movieId: string }>();
+  const { movieId, title } = useParams<{ movieId: string, title: string }>();
+  console.log(`Movie title: ${title}`);
   const [singleMovie, setSingleMovie] = useState<IMovieDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +14,7 @@ const MovieDetails = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      if (!movieId) {
+      if (!movieId || isNaN(Number(movieId))) {
         setError("No movie ID provided.");
         setLoading(false);
         return;
@@ -100,6 +102,7 @@ const MovieDetails = () => {
               Watch Trailer
             </button>
           </div>
+          <Footer />
         </div>
       ) : (
         <p className="text-center text-gray-500">No movie data found.</p>
