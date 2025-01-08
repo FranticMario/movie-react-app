@@ -28,7 +28,7 @@ function App() {
   )
 
   return (
-    <div className="flex justify-center flex-col w-[428px] mx-auto">
+    <div className="flex justify-center flex-col w-[428px] mx-auto bg-[#ffff]">
       <AnimatePresence>
         <RouterProvider router={router} />
       </AnimatePresence>
