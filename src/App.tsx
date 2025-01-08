@@ -15,7 +15,6 @@ import { AnimatePresence } from "framer-motion";
 import MovieLists from "./pages/MovieLists";
 
 function App() {
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -34,7 +33,7 @@ function App() {
   );
 
   return (
-    <div className="flex items-center justify-center flex-col w-[428px] h-screen">
+    <div className="flex items-center justify-center flex-col">
       <AnimatePresence>
         <RouterProvider router={router} />
       </AnimatePresence>
