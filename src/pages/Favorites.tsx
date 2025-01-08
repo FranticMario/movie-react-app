@@ -1,3 +1,5 @@
+
+
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FavoritesContext } from "../contexts/FavoritesContext";
@@ -99,6 +101,7 @@ const Favorites = () => {
         </ul>
       </div>
     </section>
+
   )
 }
 
