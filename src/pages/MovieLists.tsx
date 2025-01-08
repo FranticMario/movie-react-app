@@ -9,8 +9,10 @@ const MovieLists = () => {
 
   return (
     <div className="w-full pt-8">
-      <SearchBar />
-      {isPopular && <h1 className="text-2xl font-bold pb-3">Popular</h1>}
+      <div className="px-5">
+        <SearchBar />
+      </div>
+      {isPopular && <h1 className="text-2xl font-bold pb-3 px-5">Popular</h1>}
       <MovieList />
       <Footer />
     </div>
