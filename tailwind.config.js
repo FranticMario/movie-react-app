@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'custom-gradient': 'linear-gradient(to bottom right, #e0eee0, #e0eee0 5%, #f87171 50%, #c53030, #eea2ad 75%)',
+       'custom-gradient':'linear-gradient(to bottom right,  #d1b8b0, #d2b9af 15%, #da6d6d 50%, #c53030, #eea2ad 75% )' 
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
