@@ -49,7 +49,15 @@ const SwiperCarousel = () => {
                 className="object-cover w-full h-full"
                 src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}></img>
               <div className="text-white font-poppins text-[16px] font-bold leading-normal absolute z-20 bottom-[55px] left-6">
-                {movie.original_title}
+                <Link
+                  to={`/movie/${movie.id}/${movie.title
+                    .trim()
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '')}`}
+                  className="hover:underline">
+                  {movie.original_title}
+                </Link>
               </div>
               <div className="text-white font-poppins text-[16px] font-light leading-normal z-20 absolute bottom-[25px] right-6">
                 ⭐ {movie.vote_average.toFixed(1)} / 10

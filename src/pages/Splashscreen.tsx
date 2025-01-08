@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import MOV from '../assets/SVGs/MOV'
 
 const Splashscreen = () => {
   const navigate = useNavigate()
@@ -15,21 +16,31 @@ const Splashscreen = () => {
   return (
     <motion.section
       initial={{
-        scale: 0,
+        opacity: 0,
       }}
       animate={{
-        scale: 1,
-      }}
-      exit={{
-        opacity: 0,
-        scale: 0.8,
+        opacity: 1,
       }}
       transition={{
-        duration: 1,
-        ease: 'backInOut',
+        duration: 0.8,
+        ease: 'linear',
       }}
-      className="bg-[#FC2121] rounded-[50px] w-[428px] h-[926px] flex flex-col justify-center items-center">
-      <h1 className="text-[44px] text-white">.MOV</h1>
+      className="bg-[#FC2121] h-screen flex flex-col justify-center items-center">
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 50,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 1.5,
+          ease: 'easeOut',
+        }}>
+        <MOV />
+      </motion.div>
     </motion.section>
   )
 }
