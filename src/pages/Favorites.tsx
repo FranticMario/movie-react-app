@@ -1,20 +1,17 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { FavoritesContext } from "../components/Context";
-// import { Movie } from "../înterfaces/Movie";
+import { FavoritesContext } from "../contexts/FavoritesContext";
+
 const Favorites = () => {
   const { favorites } = useContext(FavoritesContext)
 
   if (favorites.length === 0) {
     return (
       <section className="mx-auto p-6 max-w-md min-h-screen flex justify-center items-center">
-
-        <div className="text-cente">
-          <h2 className="text-xl font-semibold">Your favorites list is empty</h2>
-          <p className="mt-2">
-            Add movies to your favorites to see them here.
-          </p>
-          <Link to="popular" className="text-red-500 hover:underline mt-4 block">
+        <div>
+          <h2>Your favorites list is empty</h2>
+          <p>Add movies to your favorites to see them here.</p>
+          <Link to="popular">
             Go back to the movies list
           </Link>
         </div>
@@ -24,29 +21,23 @@ const Favorites = () => {
 
   return (
     <section className="mx-auto p-6 max-w-md min-h-screen flex justify-center items-center">
-
-      <div className="mx-auto p-6 max-w-md min-h-screen">
-        <h1 className="text-2xl font-bold mb-4">Your Favorite Movies</h1>
-        <ul className="space-y-4">
+      <div>
+        <h1>Your Favorite Movies</h1>
+        <ul>
           {favorites.map((movie) => (
-            <li
-              key={movie.id}
-              className="flex items-center bg-white rounded-lg shadow-md p-4"
-            >
+            <li key={movie.id}>
               {/* Movie Poster */}
               <img
                 src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
                 alt={movie.title}
-                className="w-20 h-28 rounded-lg object-cover"
               />
 
               {/* Movie Details */}
-              <div className="ml-4 flex-1">
-                <h2 className="text-lg font-semibold truncate">{movie.title}</h2>
-                <div className="flex items-center space-x-2 mt-2 text-gray-500">
-                  <span className="flex items-center">
+              <div>
+                <h2>{movie.title}</h2>
+                <div>
+                  <span>
                     <svg
-                      className="w-4 h-4 text-yellow-400 mr-1"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
@@ -55,15 +46,14 @@ const Favorites = () => {
                     </svg>
                     {movie.vote_average.toFixed(1)}
                   </span>
-                  <span className="mx-1">•</span>
+                  <span>•</span>
                   <span>{new Date(movie.release_date).getFullYear()}</span>
                 </div>
               </div>
 
               {/* Remove */}
               <button
-                // onClick={() => removeFromFavourites()}
-                className="ml-4 text-gray-400 hover:text-gray-700"
+              // onClick={() => removeFromFavourites()}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +61,6 @@ const Favorites = () => {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="w-6 h-6"
                 >
                   <path
                     strokeLinecap="round"

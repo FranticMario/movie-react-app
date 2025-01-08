@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Movie } from "../înterfaces/Movie";
+import { Movie } from "../interfaces/Movie";
 
 interface IFavoritesContext {
     favorites: Movie[]
