@@ -1,27 +1,3 @@
-/* import { NavLink } from 'react-router-dom';
-import HomeIcon from '../assets/SVGs/HomeIcon';
-import FavoriteIcon from '../assets/SVGs/FavoriteIcon';
-import DownloadIcon from '../assets/SVGs/DownloadIcon';
-import ProfileIcon from '../assets/SVGs/ProfileIcon';
-
-
-
-const Footer = () => {
-  return <>
-  <footer className='my-12'>
-    <nav className="flex justify-evenly">
-      <NavLink to={'/'} className={({ isActive }) => isActive ? "text-red-500" : "text-gray-400"}>{HomeIcon}<span className="ml-2">{isActive ? 'Home' : ''}</span></NavLink>
-      <NavLink to={'/favorites'} className={({ isActive }) => isActive ? "text-red-500" : "text-gray-400"}>{FavoriteIcon}</NavLink>
-      <NavLink to={''} className={({ isActive }) => isActive ? "text-red-500" : "text-gray-400"} >{DownloadIcon}</NavLink>
-      <NavLink to={''} className={({ isActive }) => isActive ? "text-red-500" : "text-gray-400"} >{ProfileIcon}</NavLink>
-    </nav>
-  </footer>
-  </>
-}
-
-export default Footer */
-
-/* test */
 
 import { NavLink } from 'react-router-dom'
 import HomeIcon from '../assets/SVGs/HomeIcon'
@@ -32,7 +8,7 @@ import ProfileIcon from '../assets/SVGs/ProfileIcon'
 const Footer = () => {
   return (
     <>
-      <footer className="my-12">
+      <footer className=" fixed bottom-0 w-full max-w-[428px] bg-white py-10 mt-10">
         <nav className="flex justify-evenly">
           <NavLink
             to={'/home'}
