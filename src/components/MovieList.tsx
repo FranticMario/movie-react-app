@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { popularMovies } from "../shared/Api";
+=======
+import { useEffect, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { genreMovies, popularMovies, searchMovies } from "../shared/Api";
+>>>>>>> main
 import { Movie } from "../interfaces/Movie";
 import { useGenreContext } from "../contexts/GenreContext";
 import { FavoritesContext } from "../contexts/FavoritesContext";
@@ -10,19 +16,41 @@ type Params = {
 };
 
 const MovieList = () => {
+  const location = useLocation();
   const { query } = useParams<Params>();
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { genres } = useGenreContext();
+<<<<<<< HEAD
   const { favorites, setFavorites } = useContext(FavoritesContext);
+=======
+>>>>>>> main
 
   const fetchMovies = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      setMovies(popularMovies.data.results);
+      if (location.pathname === "/popular") {
+        setMovies(popularMovies.data.results);
+      } else {
+        if (query && location.pathname.startsWith("/search")) {
+          const searchResults = await searchMovies(query);
+          console.log("movie_search", searchResults);
+          setMovies(searchResults?.data.results);
+        } else if (query && location.pathname.startsWith("/genre")) {
+          const genreId = genres.find(
+            (genre) => genre.name.toLowerCase() === query.toLowerCase()
+          )?.id;
+          console.log("genreId", { genreId, query });
+          if (genreId) {
+            const searchResults = await genreMovies(genreId);
+            console.log("genre_search", searchResults);
+            setMovies(searchResults?.data.results);
+          }
+        }
+      }
     } catch (err) {
       setError("Failed to fetch movies. Please try again later.");
     } finally {

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 const BASE_URL = 'https://api.themoviedb.org/3/'
 
@@ -12,6 +12,52 @@ export const popularMovies = await axios.get(BASE_URL + 'movie/popular', {
     page: 1,
   },
 })
+
+
+export const searchMovies = async (query: string): Promise<AxiosResponse<any, any> | null> => {
+  try {
+    const response = await axios.get(BASE_URL + `search/movie`, {
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + import.meta.env.VITE_API_KEY,
+      },
+      params: {
+        api_key: import.meta.env.VITE_API_KEY,
+        query: query,
+        language: 'en-US',
+        page: 1,
+      },
+    })
+    return response
+  } catch (error) {
+    console.error(`Failed to fetch runtime`, error)
+    return null
+  }
+}
+
+
+export const genreMovies = async (genreId: number): Promise<any> => {
+  try {
+    const response = await axios.get(BASE_URL + `discover/movie`, {
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + import.meta.env.VITE_API_KEY,
+      },
+      params: {
+        api_key: import.meta.env.VITE_API_KEY,
+        with_genres: genreId,
+        language: "en-US",
+        sort_by: "popularity.desc",
+        page: 1,
+      },
+    })
+    return response
+  } catch (error) {
+    console.error(`Failed to fetch runtime`, error)
+    return null
+  }
+}
+
 
 export const fetchGenreList = async () => {
   try {
