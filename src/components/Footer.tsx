@@ -35,7 +35,7 @@ const Footer = () => {
             )}
           </NavLink>
           <NavLink
-            to={'/downloads'}
+            to={'/'}
             className={({ isActive }) =>
               isActive ? 'text-red-500 flex items-center' : 'text-gray-400 flex items-center'
             }>
@@ -47,17 +47,18 @@ const Footer = () => {
             )}
           </NavLink>
           <NavLink
-            to={'/profile'}
+            to={'/'}
             className={({ isActive }) =>
               isActive ? 'text-red-500 flex items-center' : 'text-gray-400 flex items-center'
             }>
             {({ isActive }) => (
               <>
-                <ProfileIcon className={isActive ? 'w-6 h-6 text-red-500' : 'w-6 h-6 text-gray-400'} />
+                <ProfileIcon className={isActive ? 'w-6 h-6 text-red-500' : 'w-6 h-6 text-gray-400'}/>
                 <span className="ml-2">{isActive ? 'Profile' : ''}</span>
               </>
             )}
           </NavLink>
+          {/* test  aria-disabled="true"*/}
         </nav>
       </footer>
     </>
