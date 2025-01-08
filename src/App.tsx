@@ -8,8 +8,13 @@ import Splashscreen from './pages/Splashscreen'
 import Genre from './pages/Genre'
 import MovieDetails from './pages/MovieDetails'
 import { AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+import { Movie } from './înterfaces/Movie'
+import { FavoritesContext } from './components/Context'
 
 function App() {
+  const [favorites, setFavorites] = useState<Movie[]>([]);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -30,7 +35,11 @@ function App() {
   return (
     <div className="flex items-center justify-center">
       <AnimatePresence>
-        <RouterProvider router={router} />
+        <FavoritesContext.Provider value={{ favorites, setFavorites }}>
+
+          <RouterProvider router={router} />
+
+        </FavoritesContext.Provider>
       </AnimatePresence>
     </div>
   )
