@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { popularMovies } from "../shared/Api";
-=======
-import { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { genreMovies, popularMovies, searchMovies } from "../shared/Api";
->>>>>>> main
 import { Movie } from "../interfaces/Movie";
 import { useGenreContext } from "../contexts/GenreContext";
 import { FavoritesContext } from "../contexts/FavoritesContext";
@@ -22,10 +16,7 @@ const MovieList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { genres } = useGenreContext();
-<<<<<<< HEAD
   const { favorites, setFavorites } = useContext(FavoritesContext);
-=======
->>>>>>> main
 
   const fetchMovies = async () => {
     try {
