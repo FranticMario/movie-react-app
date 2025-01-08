@@ -77,7 +77,7 @@ const SearchBar = () => {
         slidesPerView="auto" // Dynamically adjusts to fit buttons
         freeMode={true} // Allows free scrolling
         ref={swiperRef}
-        className="bg-gray-100 rounded-lg p-4 mb-4"
+        className=" rounded-lg p-4 mb-4"
       >
         {genres.map((genre) => (
           <SwiperSlide
