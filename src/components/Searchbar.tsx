@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGenreContext } from "../contexts/GenreContext";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css"; // Core Swiper styles
+import "swiper/css/free-mode"; // Free-mode specific styles
 
 const SearchBar = () => {
   const { genres, loading, error } = useGenreContext();
   const [search, setSearch] = useState<string>("");
   const navigate = useNavigate();
   const location = useLocation();
+  const swiperRef = useRef<any>(null);
 
   useEffect(() => {
     if (location.pathname.startsWith("/search")) {
@@ -18,6 +22,20 @@ const SearchBar = () => {
       setSearch("");
     }
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      const activeSlideIndex = genres.findIndex((genre) =>
+        location.pathname
+          .toLocaleLowerCase()
+          .endsWith(genre.name.toLocaleLowerCase())
+      );
+
+      if (activeSlideIndex !== -1) {
+        swiperRef.current.swiper.slideTo(activeSlideIndex); // Navigate to the selected slide
+      }
+    }
+  }, [location.pathname, genres]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && search) {
@@ -54,31 +72,39 @@ const SearchBar = () => {
         </span>
       </div>
 
-      <div
-        id="genreNav"
-        className="flex mb-6 space-x-1 w-full overflow-x-scroll"
-        // style={{ scrollPadding: "16px" }}
+      <Swiper
+        spaceBetween={10} // Space between slides
+        slidesPerView="auto" // Dynamically adjusts to fit buttons
+        freeMode={true} // Allows free scrolling
+        ref={swiperRef}
+        className="bg-gray-100 rounded-lg p-4 mb-4"
       >
         {genres.map((genre) => (
-          <Link
+          <SwiperSlide
             key={genre.id}
-            to={`/genre/${genre.name.toLocaleLowerCase()}`}
-            className={`px-4 py-2 min-w-28 text-center rounded-full ${
-              location.pathname.startsWith("/genre") &&
-              location.pathname
-                .toLocaleLowerCase()
-                .endsWith(genre.name.toLocaleLowerCase())
-                ? "bg-red-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
+            className="flex-shrink-0" // Prevents resizing of slides
+            style={{ width: "auto" }} // Ensures the button fits its content
           >
-            {genre.name
-              .replace("Science Fiction", "Sci-Fi")
-              .replace("TV Movie", "TV")
-              .replace("Documentary", "Docu")}
-          </Link>
+            <Link
+              key={genre.id}
+              to={`/genre/${genre.name.toLocaleLowerCase()}`}
+              className={`block px-4 py-2 min-w-28 text-center rounded-full ${
+                location.pathname.startsWith("/genre") &&
+                location.pathname
+                  .toLocaleLowerCase()
+                  .endsWith(genre.name.toLocaleLowerCase())
+                  ? "bg-red-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+            >
+              {genre.name
+                .replace("Science Fiction", "Sci-Fi")
+                .replace("TV Movie", "TV")
+                .replace("Documentary", "Docu")}
+            </Link>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </>
   );
 };

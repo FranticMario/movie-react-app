@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom'
-import SwiperCarousel from '../components/Swiper'
-import SearchBar from '../components/Searchbar'
-import Footer from '../components/Footer'
+import SwiperCarousel from "../components/Swiper";
+import SearchBar from "../components/Searchbar";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -15,7 +14,7 @@ const Home = () => {
         <Footer />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
