@@ -111,7 +111,26 @@ export const fetchMovieDetails = async (movieId: number) => {
     })
     return response.data
   } catch (error) {
-    console.error(`Failed to fetch runtime for movie ID ${movieId}`, error)
+    console.error(`Failed to fetch movie ${movieId}`, error)
+    return null
+  }
+}
+
+export const fetchMovieVideo = async (movieId: number) => {
+  try {
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, {
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + import.meta.env.VITE_API_KEY,
+      },
+      params: {
+        api_key: import.meta.env.VITE_API_KEY,
+        language: 'en-US',
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error(`Failed to fetch movie ${movieId}`, error)
     return null
   }
 }
