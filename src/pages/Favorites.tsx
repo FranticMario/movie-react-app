@@ -8,9 +8,9 @@ const Favorites = () => {
 
   if (favorites.length === 0) {
     return (
-      <section className="mx-auto p-6 max-w-md min-h-screen flex justify-center items-center">
+      <section className="mx-auto p-6 min-h-screen flex justify-center items-center">
 
-        <div className="text-cente">
+        <div className="text-center">
           <h2 className="text-xl font-semibold">Your favorites list is empty</h2>
           <p className="mt-2">
             Add movies to your favorites to see them here.
@@ -30,14 +30,14 @@ const Favorites = () => {
 
   return (
     <>
-      <section className="mx-auto p-6 max-w-md min-h-screen flex justify-center items-center">
-        <div className="mx-auto p-6 max-w-md min-h-screen">
-          <h1 className="text-2xl font-bold mb-4">Your Favorite Movies</h1>
+      <section className="w-full min-h-screen flex justify-center items-center">
+        <div className="w-full min-h-screen">
+          <h1 className="text-2xl text-center pt-4 font-bold mb-4">Your Favorite Movies</h1>
           <ul className="space-y-4">
             {favorites.map((movie) => (
               <li
                 key={movie.id}
-                className="flex items-center bg-white rounded-lg shadow-md p-4"
+                className="w-full flex justify-between items-center bg-white rounded-lg shadow-md p-4"
               >
                 {/* Link to Movie Page */}
                 <Link

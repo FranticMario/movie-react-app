@@ -39,7 +39,7 @@ const MovieDetails = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <section className="mx-auto p-6 min-h-screen flex justify-center items-center">
+    <section className="min-h-screen flex justify-center items-center">
       {singleMovie ? (
         <div className="relative bg-white rounded-3xl shadow-lg w-full overflow-hidden">
           <button
