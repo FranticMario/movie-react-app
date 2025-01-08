@@ -38,7 +38,7 @@ function App() {
   );
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center flex-col w-[428px] h-screen">
       <AnimatePresence>
         <FavoritesContext.Provider value={{ favorites, setFavorites }}>
 
