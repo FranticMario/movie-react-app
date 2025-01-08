@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import {
   fetchMovieDetails,
@@ -8,6 +8,7 @@ import {
 } from "../shared/Api";
 import { Movie } from "../interfaces/Movie";
 import { useGenreContext } from "../contexts/GenreContext";
+import { FavoritesContext } from "../contexts/FavoritesContext";
 
 type Params = {
   query: string;
@@ -20,6 +21,7 @@ const MovieList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { genres } = useGenreContext();
+  const { favorites, setFavorites } = useContext(FavoritesContext);
 
   const fetchMovies = async () => {
     try {
@@ -60,6 +62,28 @@ const MovieList = () => {
   useEffect(() => {
     fetchMovies();
   }, [query]);
+
+  const addToFavorites = (movie: Movie) => {
+    const isFav = favorites.some((favItem) => favItem.id === movie.id);
+
+    if (isFav) {
+      const updatedFavorites = favorites.filter(
+        (favItem) => favItem.id !== movie.id
+      );
+      console.log("Removing from favorites:", movie.title);
+      console.log("Updated favorites:", updatedFavorites);
+      console.log("localStorage", localStorage);
+
+      setFavorites(updatedFavorites);
+    } else {
+      const updatedFavorites = [...favorites, movie];
+      console.log("Adding to favorites:", movie.title);
+      console.log("Updated favorites:", updatedFavorites);
+      console.log("localStorage", localStorage);
+
+      setFavorites(updatedFavorites);
+    }
+  };
 
   if (loading) {
     return <p>Loading movies...</p>;
@@ -121,10 +145,22 @@ const MovieList = () => {
           </div>
 
           {/* Bookmark Icon */}
-          <Link className="ml-4 m-4 text-gray-400 hover:text-gray-700" to="#">
+          <button
+            title="fav"
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              addToFavorites(movie);
+            }}
+            className="ml-4 m-4 text-gray-400 hover:text-gray-700"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
+              fill={
+                favorites.some((favItem) => favItem.id === movie.id)
+                  ? "black"
+                  : "none"
+              }
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
@@ -136,7 +172,7 @@ const MovieList = () => {
                 d="M6.75 3h10.5c.69 0 1.25.56 1.25 1.25v16.5L12 15.75l-6.5 4.5V4.25C5.5 3.56 6.06 3 6.75 3z"
               />
             </svg>
-          </Link>
+          </button>
         </Link>
       ))}
     </div>
