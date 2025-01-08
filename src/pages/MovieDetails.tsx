@@ -39,9 +39,9 @@ const MovieDetails = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <section className="mx-auto p-6 max-w-md min-h-screen flex justify-center items-center">
+    <section className="mx-auto p-6 min-h-screen flex justify-center items-center">
       {singleMovie ? (
-        <div className="relative bg-white rounded-3xl shadow-lg max-w-md w-full overflow-hidden">
+        <div className="relative bg-white rounded-3xl shadow-lg w-full overflow-hidden">
           <button
             title="black"
             onClick={() => navigate(-1)}
@@ -62,11 +62,12 @@ const MovieDetails = () => {
               />
             </svg>
           </button>
-          <div className="relative">
+          <div className="relative font-size-0 line-height-0 overflow-hidden">
             <img
               src={`https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}`}
               alt={singleMovie.title}
-              className="w-full h-64 object-cover"
+              className="w-full h-64 object-cover block"
+              style={{ clipPath: 'inset(0px 0px 5px 0px)' }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white"></div>
           </div>
@@ -88,9 +89,9 @@ const MovieDetails = () => {
             <p className="mb-4">
               {singleMovie.overview.length > 150
                 ? singleMovie.overview.slice(
-                    0,
-                    singleMovie.overview.lastIndexOf(" ", 150)
-                  )
+                  0,
+                  singleMovie.overview.lastIndexOf(" ", 150)
+                )
                 : singleMovie.overview}
               <span className="text-red-500"> See more ...</span>
             </p>
