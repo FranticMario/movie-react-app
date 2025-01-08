@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { genreMovies, popularMovies, searchMovies } from "../shared/Api";
+import {
+  fetchMovieDetails,
+  genreMovies,
+  popularMovies,
+  searchMovies,
+} from "../shared/Api";
 import { Movie } from "../interfaces/Movie";
 import { useGenreContext } from "../contexts/GenreContext";
 
@@ -21,25 +26,30 @@ const MovieList = () => {
       setLoading(true);
       setError(null);
 
+      let fetchedMovies = [];
       if (location.pathname === "/popular") {
-        setMovies(popularMovies.data.results);
-      } else {
-        if (query && location.pathname.startsWith("/search")) {
-          const searchResults = await searchMovies(query);
-          console.log("movie_search", searchResults);
-          setMovies(searchResults?.data.results);
-        } else if (query && location.pathname.startsWith("/genre")) {
-          const genreId = genres.find(
-            (genre) => genre.name.toLowerCase() === query.toLowerCase()
-          )?.id;
-          console.log("genreId", { genreId, query });
-          if (genreId) {
-            const searchResults = await genreMovies(genreId);
-            console.log("genre_search", searchResults);
-            setMovies(searchResults?.data.results);
-          }
+        fetchedMovies = popularMovies.data.results;
+      } else if (query && location.pathname.startsWith("/search")) {
+        const searchResults = await searchMovies(query);
+        fetchedMovies = searchResults?.data.results;
+      } else if (query && location.pathname.startsWith("/genre")) {
+        const genreId = genres.find(
+          (genre) => genre.name.toLowerCase() === query.toLowerCase()
+        )?.id;
+        if (genreId) {
+          const genreResults = await genreMovies(genreId);
+          fetchedMovies = genreResults?.data.results;
         }
       }
+
+      const moviesWithRuntime = await Promise.all(
+        fetchedMovies.map(async (movie: Movie) => {
+          const details = await fetchMovieDetails(movie.id);
+          return { ...movie, runtime: details.runtime };
+        })
+      );
+
+      setMovies(moviesWithRuntime);
     } catch (err) {
       setError("Failed to fetch movies. Please try again later.");
     } finally {
@@ -60,7 +70,7 @@ const MovieList = () => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       {movies.map((movie) => (
         <Link
           to={`/movie/${movie.id}/${movie.title
@@ -69,7 +79,7 @@ const MovieList = () => {
             .replace(/[^a-z0-9]+/g, "-")
             .replace(/^-+|-+$/g, "")}`}
           key={movie.id}
-          className="flex items-center bg-white rounded-lg shadow-md p-4"
+          className="flex justify-between items-center bg-white rounded-lg shadow-md p-4 w-full"
         >
           <img
             src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
@@ -77,12 +87,12 @@ const MovieList = () => {
             className="w-20 h-28 rounded-lg object-cover"
           />
 
-          <div className="ml-4 flex-1">
-            <h2 className="text-lg font-semibold truncate">{movie.title}</h2>
+          <div className="ml-4 flex flex-col w-full">
+            <h2 className="text-lg font-semibold h-14">{movie.title}</h2>
             <div className="flex items-center space-x-2 mt-2 text-gray-500">
-              <span className="flex items-center">
+              <span className="flex items-center font-bold">
                 <svg
-                  className="w-4 h-4 text-yellow-400 mr-1"
+                  className="w-5 h-5 text-yellow-400 mr-1"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"

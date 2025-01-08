@@ -38,12 +38,10 @@ function App() {
   );
 
   return (
-    <div className="flex items-center justify-center flex-col w-[428px] h-screen">
+    <div className="flex items-center justify-center flex-col ">
       <AnimatePresence>
         <FavoritesContext.Provider value={{ favorites, setFavorites }}>
-
           <RouterProvider router={router} />
-
         </FavoritesContext.Provider>
       </AnimatePresence>
     </div>
