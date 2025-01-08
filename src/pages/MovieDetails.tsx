@@ -40,7 +40,7 @@ const MovieDetails = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <section className="bg-white rounded-3xl shadow-lg overflow-hidden">
+    <section className="min-h-screen bg-white rounded-3xl shadow-lg overflow-hidden">
       <div className="flex justify-center">
         {singleMovie ? (
           <div className="relative w-full">
@@ -92,12 +92,12 @@ const MovieDetails = () => {
                 {singleMovie.overview.length > 150
                   ? singleMovie.overview.slice(
                     0,
-                    singleMovie.overview.lastIndexOf(" ", 150)
+                    singleMovie.overview.lastIndexOf(" ", 200)
                   )
                   : singleMovie.overview}
                 <span className="text-red-500"> See more ...</span>
               </p>
-              <div className="mb-6 grid grid-cols-2 gap-2">
+              <div className="mb-10 grid grid-cols-2 gap-2">
                 <p className="font-bold">Genres</p>
                 <p>{singleMovie.genres.map((g) => g.name).join(", ")}</p>
                 <p className="font-bold">Languages</p>
