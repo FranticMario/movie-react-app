@@ -1,18 +1,13 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
-import "./App.css";
-import RootLayout from "./RootLayout/RootLayout";
-import Home from "./pages/Home";
-import Favorites from "./pages/Favorites";
-import Intro from "./pages/Intro";
-import Splashscreen from "./pages/Splashscreen";
-import MovieDetails from "./pages/MovieDetails";
-import { AnimatePresence } from "framer-motion";
-import MovieLists from "./pages/MovieLists";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import './App.css'
+import RootLayout from './RootLayout/RootLayout'
+import Home from './pages/Home'
+import Favorites from './pages/Favorites'
+import Intro from './pages/Intro'
+import Splashscreen from './pages/Splashscreen'
+import MovieDetails from './pages/MovieDetails'
+import { AnimatePresence } from 'framer-motion'
+import MovieLists from './pages/MovieLists'
 
 function App() {
   const router = createBrowserRouter(
@@ -28,17 +23,17 @@ function App() {
           <Route path="favorites" element={<Favorites />} />
           <Route path="movie/:movieId/:title" element={<MovieDetails />} />
         </Route>
-      </>
-    )
-  );
+      </>,
+    ),
+  )
 
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="flex justify-center flex-col w-[428px] mx-auto">
       <AnimatePresence>
         <RouterProvider router={router} />
       </AnimatePresence>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
