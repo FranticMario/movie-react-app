@@ -60,9 +60,9 @@ const SearchBar = () => {
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={handleKeyDown}
           value={search}
-          className="w-full px-5 py-3 pr-10 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="font-poppins w-full px-5 py-3 pr-10 rounded-lg bg-[#f8f8ff] focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+        <span className="absolute right-3 top-[26px] transform -translate-y-1/2 text-gray-500">
           <button
             title="Search"
             onClick={() => search && navigate(`/search/${search}`)}
@@ -88,13 +88,13 @@ const SearchBar = () => {
             <Link
               key={genre.id}
               to={`/genre/${genre.name.toLocaleLowerCase()}`}
-              className={`block px-4 py-2 min-w-28 text-center rounded-full ${
+              className={`font-poppins block px-4 py-2 min-w-28 text-center rounded-xl ${
                 location.pathname.startsWith("/genre") &&
                 location.pathname
                   .toLocaleLowerCase()
                   .endsWith(genre.name.toLocaleLowerCase())
                   ? "bg-red-500 text-white"
-                  : "bg-gray-200 text-gray-700"
+                  : "bg-[#f8f8ff] text-gray-700"
               }`}
             >
               {genre.name
