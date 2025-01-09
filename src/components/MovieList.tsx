@@ -1,110 +1,105 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
-import {
-  fetchMovieDetails,
-  genreMovies,
-  popularMovies,
-  searchMovies,
-} from "../shared/Api";
-import { Movie } from "../interfaces/Movie";
-import { useGenreContext } from "../contexts/GenreContext";
-import { FavoritesContext } from "../contexts/FavoritesContext";
+import { useContext, useEffect, useState } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
+import { fetchMovieDetails, genreMovies, popularMovies, searchMovies } from '../shared/Api'
+import { Movie } from '../interfaces/Movie'
+import { useGenreContext } from '../contexts/GenreContext'
+import { FavoritesContext } from '../contexts/FavoritesContext'
+import Loading from './Loading'
 
 type Params = {
-  query: string;
-};
+  query: string
+}
 
 const MovieList = () => {
-  const location = useLocation();
-  const { query } = useParams<Params>();
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const { genres } = useGenreContext();
-  const { favorites, setFavorites } = useContext(FavoritesContext);
+  const location = useLocation()
+  const { query } = useParams<Params>()
+  const [movies, setMovies] = useState<Movie[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  const { genres } = useGenreContext()
+  const { favorites, setFavorites } = useContext(FavoritesContext)
 
   const fetchMovies = async () => {
     try {
-      setLoading(true);
-      setError(null);
+      setLoading(true)
+      setError(null)
 
-      let fetchedMovies = [];
-      if (location.pathname === "/popular") {
-        fetchedMovies = popularMovies.data.results;
-      } else if (query && location.pathname.startsWith("/search")) {
-        const searchResults = await searchMovies(query);
-        fetchedMovies = searchResults?.data.results;
-      } else if (query && location.pathname.startsWith("/genre")) {
-        const genreId = genres.find(
-          (genre) => genre.name.toLowerCase() === query.toLowerCase()
-        )?.id;
+      let fetchedMovies = []
+      if (location.pathname === '/popular') {
+        fetchedMovies = popularMovies.data.results
+      } else if (query && location.pathname.startsWith('/search')) {
+        const searchResults = await searchMovies(query)
+        fetchedMovies = searchResults?.data.results
+      } else if (query && location.pathname.startsWith('/genre')) {
+        const genreId = genres.find(genre => genre.name.toLowerCase() === query.toLowerCase())?.id
         if (genreId) {
-          const genreResults = await genreMovies(genreId);
-          fetchedMovies = genreResults?.data.results;
+          const genreResults = await genreMovies(genreId)
+          fetchedMovies = genreResults?.data.results
         }
       }
 
       const moviesWithRuntime = await Promise.all(
         fetchedMovies.map(async (movie: Movie) => {
-          const details = await fetchMovieDetails(movie.id);
-          return { ...movie, runtime: details.runtime };
-        })
-      );
+          const details = await fetchMovieDetails(movie.id)
+          return { ...movie, runtime: details.runtime }
+        }),
+      )
 
-      setMovies(moviesWithRuntime);
+      setMovies(moviesWithRuntime)
     } catch (err) {
-      setError("Failed to fetch movies. Please try again later.");
+      setError('Failed to fetch movies. Please try again later.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchMovies();
-  }, [query]);
+    fetchMovies()
+  }, [query])
 
   const addToFavorites = (movie: Movie) => {
-    const isFav = favorites.some((favItem) => favItem.id === movie.id);
+    const isFav = favorites.some(favItem => favItem.id === movie.id)
 
     if (isFav) {
-      const updatedFavorites = favorites.filter(
-        (favItem) => favItem.id !== movie.id
-      );
-      console.log("Removing from favorites:", movie.title);
-      console.log("Updated favorites:", updatedFavorites);
-      console.log("localStorage", localStorage);
+      const updatedFavorites = favorites.filter(favItem => favItem.id !== movie.id)
+      console.log('Removing from favorites:', movie.title)
+      console.log('Updated favorites:', updatedFavorites)
+      console.log('localStorage', localStorage)
 
-      setFavorites(updatedFavorites);
+      setFavorites(updatedFavorites)
     } else {
-      const updatedFavorites = [...favorites, movie];
-      console.log("Adding to favorites:", movie.title);
-      console.log("Updated favorites:", updatedFavorites);
-      console.log("localStorage", localStorage);
+      const updatedFavorites = [...favorites, movie]
+      console.log('Adding to favorites:', movie.title)
+      console.log('Updated favorites:', updatedFavorites)
+      console.log('localStorage', localStorage)
 
-      setFavorites(updatedFavorites);
+      setFavorites(updatedFavorites)
     }
-  };
+  }
 
   if (loading) {
-    return <p>Loading movies...</p>;
+    return (
+      <div className="w-full flex justify-center items-center h-[calc(100vh-204px)]">
+        <Loading />
+      </div>
+    )
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p>{error}</p>
   }
 
   return (
-    <div className="space-y-4 w-full pb-20">
-      {movies.map((movie) => (
+    <div className="space-y-4 w-full pb-[5.4rem]">
+      {movies.map(movie => (
         <Link
           to={`/movie/${movie.id}/${movie.title
             .trim()
             .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-+|-+$/g, "")}`}
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')}`}
           key={movie.id}
-          className="flex justify-between items-center bg-white rounded-lg shadow-md p-4 w-full"
-        >
+          className="flex justify-between items-center bg-white rounded-lg shadow-md p-4 w-full">
           <img
             src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
             alt={movie.title}
@@ -119,8 +114,7 @@ const MovieList = () => {
                   className="w-5 h-5 text-yellow-400 mr-1"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
+                  fill="currentColor">
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                 </svg>
                 {movie.vote_average.toFixed(1)}
@@ -129,10 +123,7 @@ const MovieList = () => {
               <span>{new Date(movie.release_date).getFullYear()}</span>
               <span className="mx-1">•</span>
 
-              <span>
-                {genres.find((genre) => genre.id === movie.genre_ids[0])
-                  ?.name || "Unknown"}
-              </span>
+              <span>{genres.find(genre => genre.id === movie.genre_ids[0])?.name || 'Unknown'}</span>
               <span className="mx-1">•</span>
               {movie.runtime ? (
                 <span>
@@ -147,25 +138,19 @@ const MovieList = () => {
           {/* Bookmark Icon */}
           <button
             title="fav"
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              addToFavorites(movie);
+            onClick={e => {
+              e.stopPropagation()
+              e.preventDefault()
+              addToFavorites(movie)
             }}
-            className="ml-4 m-4 text-gray-400 hover:text-gray-700"
-          >
+            className="ml-4 m-4 text-gray-400 hover:text-gray-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill={
-                favorites.some((favItem) => favItem.id === movie.id)
-                  ? "black"
-                  : "none"
-              }
+              fill={favorites.some(favItem => favItem.id === movie.id) ? 'black' : 'none'}
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-6 h-6"
-            >
+              className="w-6 h-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -176,7 +161,7 @@ const MovieList = () => {
         </Link>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default MovieList;
+export default MovieList

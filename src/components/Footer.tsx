@@ -1,4 +1,3 @@
-
 import { NavLink } from 'react-router-dom'
 import HomeIcon from '../assets/SVGs/HomeIcon'
 import FavoriteIcon from '../assets/SVGs/FavoriteIcon'
@@ -8,7 +7,7 @@ import ProfileIcon from '../assets/SVGs/ProfileIcon'
 const Footer = () => {
   return (
     <>
-      <footer className=" fixed bottom-0 w-full max-w-[428px] bg-white py-10 mt-10">
+      <footer className="fixed bottom-0 w-full max-w-[428px] bg-white py-10 mt-10">
         <nav className="flex justify-evenly">
           <NavLink
             to={'/home'}
@@ -35,7 +34,7 @@ const Footer = () => {
             )}
           </NavLink>
           <NavLink
-            to={'/downloads'}
+            to={'/'}
             className={({ isActive }) =>
               isActive ? 'text-red-500 flex items-center' : 'text-gray-400 flex items-center'
             }>
@@ -47,7 +46,7 @@ const Footer = () => {
             )}
           </NavLink>
           <NavLink
-            to={'/profile'}
+            to={'/'}
             className={({ isActive }) =>
               isActive ? 'text-red-500 flex items-center' : 'text-gray-400 flex items-center'
             }>
@@ -58,6 +57,7 @@ const Footer = () => {
               </>
             )}
           </NavLink>
+          {/* test  aria-disabled="true"*/}
         </nav>
       </footer>
     </>
