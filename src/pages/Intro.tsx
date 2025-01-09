@@ -5,7 +5,7 @@ const Intro = () => {
       <div className="pt-10 bg-custom-gradient">
         <img src="./IMGs/intro-view-img.png" alt="Preview image" />
       </div>
-      <div className="text-center p-12 absolute top-2/3 left-0 w-full z-10 mt-5 bg-white">
+      <div className="text-center p-[2.2rem] absolute top-2/3 left-0 w-full z-10 mt-5 bg-white">
         <h1 className="text-[28px] font-poppins font-bold pl-6 pr-18 pb-6">
           Enjoy Your Movie <br /> Watch Everywhere
         </h1>
