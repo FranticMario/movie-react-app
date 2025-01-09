@@ -9,7 +9,6 @@ import {
 import { Movie } from "../interfaces/Movie";
 import { useGenreContext } from "../contexts/GenreContext";
 import { FavoritesContext } from "../contexts/FavoritesContext";
-import Loading from "./Loading";
 
 type Params = {
   query: string;
@@ -31,8 +30,7 @@ const MovieList = () => {
 
       let fetchedMovies = [];
       if (location.pathname === "/popular") {
-        const results = await popularMovies();
-        fetchedMovies = results?.data.results;
+        fetchedMovies = popularMovies.data.results;
       } else if (query && location.pathname.startsWith("/search")) {
         const searchResults = await searchMovies(query);
         fetchedMovies = searchResults?.data.results;
@@ -88,11 +86,7 @@ const MovieList = () => {
   };
 
   if (loading) {
-    return (
-      <div className="w-full flex justify-center items-center h-[calc(100vh-204px)]">
-        <Loading />
-      </div>
-    );
+    return <p>Loading movies...</p>;
   }
 
   if (error) {
@@ -100,7 +94,7 @@ const MovieList = () => {
   }
 
   return (
-    <div className="font-poppins space-y-4 w-full pb-[5.4rem]">
+    <div className="space-y-4 w-full">
       {movies.map((movie) => (
         <Link
           to={`/movie/${movie.id}/${movie.title
@@ -119,10 +113,10 @@ const MovieList = () => {
 
           <div className="ml-4 flex flex-col w-full">
             <h2 className="text-lg font-semibold h-14">{movie.title}</h2>
-            <div className="flex items-center space-x-[6px] mt-2 text-gray-500">
+            <div className="flex items-center space-x-2 mt-2 text-gray-500">
               <span className="flex items-center font-bold">
                 <svg
-                  className="w-5 h-5 text-yellow-400"
+                  className="w-5 h-5 text-yellow-400 mr-1"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
@@ -158,15 +152,16 @@ const MovieList = () => {
               e.preventDefault();
               addToFavorites(movie);
             }}
-            className="ml-4 m-4 text-gray-400 hover:text-gray-700"
+            className={`ml-4 m-4  
+              ${
+                favorites.some((favItem) => favItem.id === movie.id)
+                  ? "text-red-500"
+                  : "text-gray-400"
+              }`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill={
-                favorites.some((favItem) => favItem.id === movie.id)
-                  ? "black"
-                  : "none"
-              }
+              fill={"none"}
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
