@@ -13,6 +13,8 @@ const MovieDetails = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
   useEffect(() => {
     const fetchDetails = async () => {
       if (!movieId || isNaN(Number(movieId))) {
@@ -38,6 +40,10 @@ const MovieDetails = () => {
   if (loading) return <p>Loading...</p>;
 
   if (error) return <p>{error}</p>;
+
+  const toggleText = () => {
+    setIsExpanded((prev) => !prev);
+  };
 
   return (
     <section className="min-h-screen bg-white shadow-lg overflow-hidden">
@@ -89,13 +95,20 @@ const MovieDetails = () => {
                 </p>
                 <h3 className="text-lg font-bold mb-2">Overview</h3>
                 <p className="mb-4">
-                  {singleMovie.overview.length > 200
-                    ? singleMovie.overview.slice(
-                      0,
-                      singleMovie.overview.lastIndexOf(" ", 200)
-                    )
-                    : singleMovie.overview}
-                  <span className="text-red-500"> See more ...</span>
+                  {isExpanded
+                    ? singleMovie.overview
+                    : singleMovie.overview.length > 200
+                      ? singleMovie.overview.slice(
+                        0,
+                        singleMovie.overview.lastIndexOf(" ", 200)
+                      ) + " "
+                      : singleMovie.overview}
+                  <button
+                    onClick={toggleText}
+                    className="text-red-500 ml-2"
+                  >
+                    {isExpanded ? "See less" : "See more..."}
+                  </button>
                 </p>
                 <div className="mb-6 grid grid-cols-2 gap-2">
                   <p className="font-bold">Genres</p>
