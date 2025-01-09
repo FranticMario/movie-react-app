@@ -91,7 +91,7 @@ const MovieList = () => {
   }
 
   return (
-    <div className="space-y-4 w-full mb-32">
+    <div className="space-y-4 w-full mb-28">
       {movies.map(movie => (
         <Link
           to={`/movie/${movie.id}/${movie.title
