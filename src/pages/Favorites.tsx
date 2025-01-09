@@ -30,7 +30,7 @@ const Favorites = () => {
 
   return (
     <>
-      <section className="w-full min-h-screen flex justify-center items-center mb-28">
+      <section className="w-full min-h-screen flex justify-center items-center mb-32">
         <div className="w-full">
           <h1 className="text-2xl text-center pt-4 font-bold mb-4">Your Favorite Movies</h1>
           <ul className="space-y-4">
