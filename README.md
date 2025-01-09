@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# .MOV
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## The Movie React App
 
-Currently, two official plugins are available:
+### Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+.MOV is a mobile and web application developed by a team of four developers. The goal of this app is to provide users with comprehensive information about movies, including search functionality, genre-based navigation, and detailed movie information.
 
-## Expanding the ESLint configuration
+### Team
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [FranticMario](https://github.com/FranticMario)
+- [TinaBK24](https://github.com/TinaBK24)
+- [Mark1U](https://github.com/Mark1U)
+- [sharonVko](https://github.com/sharonVko)
 
-- Configure the top-level `parserOptions` property like this:
+### Preview
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![screenshot](./public/IMGs/intropage-preview.png)
+![screenshot](./public/IMGs/homepage-preview.png)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Or check it out live on: [MOV - The App](https://movie-react-database.netlify.app/intro)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Technologies Used
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Vite
+
+- React
+
+- Tailwind CSS
+
+- React Router DOM
+
+- Framer Motion (for animations)
+
+- Axios
+
+- Various other libraries
+
+### Features
+
+- Welcome Animation: Users are greeted with an engaging animation upon launching the app.
+
+- Intro Page: A smooth transition takes users to the introduction page.
+
+- Homepage: Accessible via a button from the intro page, the homepage offers multiple ways to discover movies.
+
+1.  Search Bar: Users can search for movies by title.
+
+2.  Genre Buttons: Easily explore movies by genre.
+
+3.  Trending Movies: A swiper displays the trending movies.
+
+- Favorites: Users can add movies to their favorites list.
+
+- Detail View: Each movie has a detailed view with comprehensive information.
+
+- Movie Trailers: Watch trailers directly within the app.
+
+- Easy Navigation: Navigate effortlessly using appropriate buttons or the footer.
+
+API Integration
+.MOV uses data fetched from the Movie Database API, ensuring up-to-date and accurate movie information.
+
+## Enjoy! 🎞️
