@@ -1,10 +1,14 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FavoritesContext } from '../contexts/FavoritesContext'
 import Footer from '../components/Footer'
 
 const Favorites = () => {
   const { favorites, setFavorites } = useContext(FavoritesContext)
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (favorites.length === 0) {
     return (
