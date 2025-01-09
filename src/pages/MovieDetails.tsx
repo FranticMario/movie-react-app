@@ -66,48 +66,50 @@ const MovieDetails = () => {
             </button>
             <div className="relative font-size-0 line-height-0 overflow-hidden">
               <img
-                src={`https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}`}
+                src={`https://image.tmdb.org/t/p/w500${singleMovie.poster_path}`}
                 alt={singleMovie.title}
-                className="w-full h-64 object-cover block"
+                className="w-full h-96 object-cover object-top block"
                 style={{ clipPath: 'inset(0px 0px 5px 0px)' }}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white"></div>
             </div>
-            <div className="p-6">
-              <p className="text-center">Movie Details</p>
-              <h2 className="text-center text-2xl font-bold text-gray-800 mb-2">
-                {singleMovie.title}
-              </h2>
-              <p className="text-center mb-6">
-                <span className="font-bold">
-                  ⭐ {singleMovie.vote_average.toFixed(1)} •{" "}
-                </span>
-                {new Date(singleMovie.release_date).toISOString().split("T")[0]} •{" "}
-                {singleMovie.genres.map((g) => g.name).join(", ")} •{" "}
-                {Math.floor(singleMovie.runtime / 60)}h {singleMovie.runtime % 60}
-                m
-              </p>
-              <h3 className="text-lg font-bold mb-2">Overview</h3>
-              <p className="mb-4">
-                {singleMovie.overview.length > 150
-                  ? singleMovie.overview.slice(
-                    0,
-                    singleMovie.overview.lastIndexOf(" ", 200)
-                  )
-                  : singleMovie.overview}
-                <span className="text-red-500"> See more ...</span>
-              </p>
-              <div className="mb-6 grid grid-cols-2 gap-2">
-                <p className="font-bold">Genres</p>
-                <p>{singleMovie.genres.map((g) => g.name).join(", ")}</p>
-                <p className="font-bold">Languages</p>
-                <p>
-                  {singleMovie.spoken_languages
-                    .map((l) => l.english_name)
-                    .join(", ")}
+            <div className="relative">
+              <div className="p-6 absolute -top-24">
+                <p className="text-center">Movie Details</p>
+                <h2 className="text-center text-2xl font-bold text-gray-800 mb-2">
+                  {singleMovie.title}
+                </h2>
+                <p className="text-center mb-6">
+                  <span className="font-bold">
+                    ⭐ {singleMovie.vote_average.toFixed(1)} •{" "}
+                  </span>
+                  {new Date(singleMovie.release_date).toISOString().split("T")[0]} •{" "}
+                  {singleMovie.genres.map((g) => g.name).join(", ")} •{" "}
+                  {Math.floor(singleMovie.runtime / 60)}h {singleMovie.runtime % 60}
+                  m
                 </p>
+                <h3 className="text-lg font-bold mb-2">Overview</h3>
+                <p className="mb-4">
+                  {singleMovie.overview.length > 150
+                    ? singleMovie.overview.slice(
+                      0,
+                      singleMovie.overview.lastIndexOf(" ", 200)
+                    )
+                    : singleMovie.overview}
+                  <span className="text-red-500"> See more ...</span>
+                </p>
+                <div className="mb-6 grid grid-cols-2 gap-2">
+                  <p className="font-bold">Genres</p>
+                  <p>{singleMovie.genres.map((g) => g.name).join(", ")}</p>
+                  <p className="font-bold">Languages</p>
+                  <p>
+                    {singleMovie.spoken_languages
+                      .map((l) => l.english_name)
+                      .join(", ")}
+                  </p>
+                </div>
+                <GoToVideo />
               </div>
-              <GoToVideo />
             </div>
           </div>
         ) : (
