@@ -40,7 +40,7 @@ const MovieDetails = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <section className="min-h-screen bg-white rounded-3xl shadow-lg overflow-hidden">
+    <section className="min-h-screen bg-white shadow-lg overflow-hidden">
       <div className="flex justify-center">
         {singleMovie ? (
           <div className="relative w-full">
