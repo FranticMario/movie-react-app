@@ -91,6 +91,7 @@ const Favorites = () => {
 
                 {/* Remove Button */}
                 <button
+                  title="Remove"
                   onClick={() => removeFromFavorites(movie.id)}
                   className="ml-4 text-gray-400 hover:text-gray-700"
                 >
