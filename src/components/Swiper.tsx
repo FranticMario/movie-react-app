@@ -20,7 +20,10 @@ const SwiperCarousel = () => {
 
   useEffect(() => {
     const fetchMovieList = async () => {
-      setPopularMovieList(popularMovies.data.results.slice(0, 10))
+      const results = await popularMovies()
+      if (results) {
+        setPopularMovieList(results.data.results.slice(0, 10))
+      }
     }
     fetchMovieList()
   }, [])
