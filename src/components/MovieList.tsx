@@ -4,6 +4,7 @@ import { fetchMovieDetails, genreMovies, popularMovies, searchMovies } from '../
 import { Movie } from '../interfaces/Movie'
 import { useGenreContext } from '../contexts/GenreContext'
 import { FavoritesContext } from '../contexts/FavoritesContext'
+import Loading from './Loading'
 
 type Params = {
   query: string
@@ -78,7 +79,11 @@ const MovieList = () => {
   }
 
   if (loading) {
-    return <p>Loading movies...</p>
+    return (
+      <p className="w-full flex justify-center items-center h-[calc(100vh-204px)]">
+        <Loading />
+      </p>
+    )
   }
 
   if (error) {
