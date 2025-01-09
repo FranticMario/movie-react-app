@@ -30,7 +30,8 @@ const MovieList = () => {
 
       let fetchedMovies = [];
       if (location.pathname === "/popular") {
-        fetchedMovies = popularMovies.data.results;
+        const results = await popularMovies();
+        fetchedMovies = results?.data.results;
       } else if (query && location.pathname.startsWith("/search")) {
         const searchResults = await searchMovies(query);
         fetchedMovies = searchResults?.data.results;

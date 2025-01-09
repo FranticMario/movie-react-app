@@ -20,7 +20,10 @@ const SwiperCarousel = () => {
 
   useEffect(() => {
     const fetchMovieList = async () => {
-      setPopularMovieList(popularMovies.data.results.slice(0, 10));
+      const results = await popularMovies();
+      if (results) {
+        setPopularMovieList(results.data.results.slice(0, 10));
+      }
     };
     fetchMovieList();
   }, []);
@@ -61,9 +64,10 @@ const SwiperCarousel = () => {
                   to={`/movie/${movie.id}/${movie.title
                     .trim()
                     .toLowerCase()
-                    .replace(/[^a-z0-9]+/g, '-')
-                    .replace(/^-+|-+$/g, '')}`}
-                  className="hover:underline">
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-+|-+$/g, "")}`}
+                  className="hover:underline"
+                >
                   {movie.original_title}
                 </Link>
               </div>

@@ -2,16 +2,25 @@ import axios, { AxiosResponse } from 'axios'
 
 const BASE_URL = 'https://api.themoviedb.org/3/'
 
-export const popularMovies = await axios.get(BASE_URL + 'movie/popular', {
-  headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer ' + import.meta.env.VITE_API_KEY,
-  },
-  params: {
-    language: 'en-US',
-    page: 1,
-  },
-})
+export const popularMovies = async (): Promise<AxiosResponse<any, any> | null> => {
+  try {
+    const response = await axios.get(BASE_URL + 'movie/popular', {
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + import.meta.env.VITE_API_KEY,
+      },
+      params: {
+        language: 'en-US',
+        page: 1,
+      }
+    })
+    return response
+  } catch (error) {
+    console.error(`Failed to fetch runtime`, error)
+    return null
+  }
+}
+
 
 
 export const searchMovies = async (query: string): Promise<AxiosResponse<any, any> | null> => {
