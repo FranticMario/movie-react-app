@@ -45,7 +45,7 @@ const Intro = () => {
           alt="Preview image"
         />
       </div>
-      <div className="text-center p-12 absolute top-2/3 left-0 w-full z-10 mt-5 bg-white z-50">
+      <div className="text-center p-12 absolute top-2/3 left-0 w-full mt-5 bg-white z-50">
         <h1 className="text-2xl font-bold pl-6 pr-18 pb-6">
           Enjoy Your Movie <br /> Watch Everywhere
         </h1>
