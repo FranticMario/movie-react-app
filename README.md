@@ -1,50 +1,21 @@
-# React + TypeScript + Vite
+# .MOV
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## The Movie React App
 
-Currently, two official plugins are available:
+### Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+.MOV is a mobile and web application developed by a team of four developers. The goal of this app is to provide users with comprehensive information about movies, including search functionality, genre-based navigation, and detailed movie information.
 
-## Expanding the ESLint configuration
+### Team
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [FranticMario](https://github.com/FranticMario)
+- [TinaBK24](https://github.com/TinaBK24)
+- [Mark1U](https://github.com/Mark1U)
+- [sharonVko](https://github.com/sharonVko)
 
-- Configure the top-level `parserOptions` property like this:
+### Preview
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![screenshot](./public/IMGs/intropage-preview.png)
+![screenshot](./public/IMGs/homepage-preview.png)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Or check it out live on [MOV ]
