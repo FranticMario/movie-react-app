@@ -22,7 +22,6 @@ export const popularMovies = async (): Promise<AxiosResponse<any, any> | null> =
 }
 
 
-
 export const searchMovies = async (query: string): Promise<AxiosResponse<any, any> | null> => {
   try {
     const response = await axios.get(BASE_URL + `search/movie`, {
@@ -44,7 +43,6 @@ export const searchMovies = async (query: string): Promise<AxiosResponse<any, an
   }
 }
 
-
 export const genreMovies = async (genreId: number): Promise<any> => {
   try {
     const response = await axios.get(BASE_URL + `discover/movie`, {
@@ -55,8 +53,8 @@ export const genreMovies = async (genreId: number): Promise<any> => {
       params: {
         api_key: import.meta.env.VITE_API_KEY,
         with_genres: genreId,
-        language: "en-US",
-        sort_by: "popularity.desc",
+        language: 'en-US',
+        sort_by: 'popularity.desc',
         page: 1,
       },
     })
@@ -66,7 +64,6 @@ export const genreMovies = async (genreId: number): Promise<any> => {
     return null
   }
 }
-
 
 export const fetchGenreList = async () => {
   try {
