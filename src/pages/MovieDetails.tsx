@@ -41,7 +41,7 @@ const MovieDetails = () => {
 
   return (
     <section className="min-h-screen bg-white shadow-lg overflow-hidden">
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-28">
         {singleMovie ? (
           <div className="relative w-full">
             <button
@@ -97,7 +97,7 @@ const MovieDetails = () => {
                   : singleMovie.overview}
                 <span className="text-red-500"> See more ...</span>
               </p>
-              <div className="mb-32 grid grid-cols-2 gap-2">
+              <div className="mb-6 grid grid-cols-2 gap-2">
                 <p className="font-bold">Genres</p>
                 <p>{singleMovie.genres.map((g) => g.name).join(", ")}</p>
                 <p className="font-bold">Languages</p>
