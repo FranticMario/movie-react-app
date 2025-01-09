@@ -1,6 +1,6 @@
 export interface IMovieDetails {
     adult: boolean;
-    backdrop_path: string;
+    backdrop_path: string | null;
     belongs_to_collection: null;
     budget: number;
     genres: Genre[];
@@ -15,7 +15,7 @@ export interface IMovieDetails {
     poster_path: string;
     production_companies: ProductionCompany[];
     production_countries: ProductionCountry[];
-    release_date: Date;
+    release_date: Date | null;
     revenue: number;
     runtime: number;
     spoken_languages: SpokenLanguage[];

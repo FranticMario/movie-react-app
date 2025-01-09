@@ -83,14 +83,13 @@ const MovieDetails = () => {
                   <span className="font-bold">
                     ⭐ {singleMovie.vote_average.toFixed(1)} •{" "}
                   </span>
-                  {new Date(singleMovie.release_date).toISOString().split("T")[0]} •{" "}
-                  {singleMovie.genres.map((g) => g.name).join(", ")} •{" "}
-                  {Math.floor(singleMovie.runtime / 60)}h {singleMovie.runtime % 60}
-                  m
+                  {singleMovie.release_date && new Date(singleMovie.release_date).toISOString().split("T")[0]}
+                  • {singleMovie.genres.map((g) => g.name).join(", ")} •{" "}
+                  {Math.floor(singleMovie.runtime / 60)}h {singleMovie.runtime % 60}m
                 </p>
                 <h3 className="text-lg font-bold mb-2">Overview</h3>
                 <p className="mb-4">
-                  {singleMovie.overview.length > 150
+                  {singleMovie.overview.length > 200
                     ? singleMovie.overview.slice(
                       0,
                       singleMovie.overview.lastIndexOf(" ", 200)
